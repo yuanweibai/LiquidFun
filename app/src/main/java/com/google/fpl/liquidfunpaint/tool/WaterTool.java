@@ -30,8 +30,8 @@ public class WaterTool extends Tool {
 
     public WaterTool() {
         super(ToolType.WATER);
-        mParticleFlags = ParticleFlag.waterParticle;
-        mParticleGroupFlags = ParticleGroupFlag.solidParticleGroup;
+        mParticleFlags = ParticleFlag.waterParticle | ParticleFlag.colorMixingParticle;
+        mParticleGroupFlags = ParticleGroupFlag.particleGroupCanBeEmpty;
     }
 
     /**

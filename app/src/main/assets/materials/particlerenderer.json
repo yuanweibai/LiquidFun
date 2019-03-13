@@ -1,8 +1,8 @@
 {
     "waterParticlePointSprite": {
         "uDiffuseTexture": "textures/particle_blurred.png",
-        "particleSizeScale" : 2.5,
-        "weightScale": 0.05,
+        "particleSizeScale" : 12,
+        "weightScale": 0,
         "weightRangeShift": 0.8,
         "weightCutoff": 0.7
     },
