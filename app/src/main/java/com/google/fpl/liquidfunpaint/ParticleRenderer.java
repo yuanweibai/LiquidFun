@@ -247,7 +247,7 @@ public class ParticleRenderer {
         // Set up the transform
         float ratio = (float) height / width;
         Matrix.setIdentityM(mTransformFromTexture, 0);
-        Matrix.scaleM(mTransformFromTexture, 0, 1, 1 / ratio, 1);
+        Matrix.scaleM(mTransformFromTexture, 0, 1, 1, 1);
 
         Matrix.setIdentityM(mTransformFromWorld, 0);
         Matrix.translateM(mTransformFromWorld, 0, -1, -ratio, 0);
