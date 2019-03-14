@@ -13,12 +13,12 @@
      limitations under the License.
 
  -->
- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.google.fpl.liquidfunpaint.MainActivity" >
+    tools:context="com.google.fpl.liquidfunpaint.MainActivity">
 
     <android.opengl.GLSurfaceView
         android:id="@+id/world"
@@ -30,393 +30,393 @@
 
     <ImageView
         android:id="@+id/color_rigid_1"
-        android:contentDescription="@string/color_rigid_1"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/selecting"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_rigid_1"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_rigid_1" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_rigid_1"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_rigid_2"
-        android:contentDescription="@string/color_rigid_2"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_rigid_1"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_rigid_2"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_rigid_2" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_rigid_2"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_rigid_3"
-        android:contentDescription="@string/color_rigid_3"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_rigid_2"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_rigid_3"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_rigid_3" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_rigid_3"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_rigid_4"
-        android:contentDescription="@string/color_rigid_4"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_rigid_3"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_rigid_4"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_rigid_4" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_rigid_4"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_rigid_5"
-        android:contentDescription="@string/color_rigid_5"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_rigid_4"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_rigid_5"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_rigid_5" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_rigid_5"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_rigid_6"
-        android:contentDescription="@string/color_rigid_6"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_rigid_5"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_rigid_6"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_rigid_6" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_rigid_6"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_rigid_7"
-        android:contentDescription="@string/color_rigid_7"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_rigid_6"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_rigid_7"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_rigid_7" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_rigid_7"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_rigid_8"
-        android:contentDescription="@string/color_rigid_8"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_rigid_7"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_rigid_8"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_rigid_8" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_rigid_8"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_rigid_9"
-        android:contentDescription="@string/color_rigid_9"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_rigid_8"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_rigid_9"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_rigid_9" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_rigid_9"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_rigid_10"
-        android:contentDescription="@string/color_rigid_10"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_rigid_9"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_rigid_10"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_rigid_10" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_rigid_10"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_rigid_11"
-        android:contentDescription="@string/color_rigid_11"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_rigid_10"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_rigid_11"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_rigid_11" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_rigid_11"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_rigid_12"
-        android:contentDescription="@string/color_rigid_12"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_rigid_11"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_rigid_12"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_rigid_12" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_rigid_12"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_rigid_end"
-        android:contentDescription="@null"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_rigid_12"
+        android:contentDescription="@null"
         android:scaleType="fitStart"
-        android:visibility="gone"
-        android:src="@drawable/palette_end" />
+        android:src="@drawable/palette_end"
+        android:visibility="gone" />
 
     <!-- Palette for water particles  -->
 
     <ImageView
         android:id="@+id/color_water_1"
-        android:contentDescription="@string/color_water_1"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/selecting"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_water_1"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_water_1" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_water_1"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_water_2"
-        android:contentDescription="@string/color_water_2"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_water_1"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_water_2"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_water_2" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_water_2"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_water_3"
-        android:contentDescription="@string/color_water_3"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_water_2"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_water_3"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_water_3" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_water_3"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_water_4"
-        android:contentDescription="@string/color_water_4"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_water_3"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_water_4"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_water_4" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_water_4"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_water_5"
-        android:contentDescription="@string/color_water_5"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_water_4"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_water_5"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_water_5" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_water_5"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_water_6"
-        android:contentDescription="@string/color_water_6"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_water_5"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_water_6"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_water_6" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_water_6"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_water_7"
-        android:contentDescription="@string/color_water_7"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_water_6"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_water_7"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_water_7" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_water_7"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_water_8"
-        android:contentDescription="@string/color_water_8"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_water_7"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_water_8"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_water_8" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_water_8"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_water_9"
-        android:contentDescription="@string/color_water_9"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_water_8"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_water_9"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_water_9" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_water_9"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_water_10"
-        android:contentDescription="@string/color_water_10"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_water_9"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_water_10"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_water_10" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_water_10"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_water_11"
-        android:contentDescription="@string/color_water_11"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_water_10"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_water_11"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_water_11" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_water_11"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_water_12"
-        android:contentDescription="@string/color_water_12"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_water_11"
-        android:scaleType="fitXY"
-        android:visibility="gone"
         android:clickable="true"
+        android:contentDescription="@string/color_water_12"
         android:onClick="onClickPalette"
-        android:src="@drawable/color_water_12" />
+        android:scaleType="fitXY"
+        android:src="@drawable/color_water_12"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/color_water_end"
-        android:contentDescription="@null"
         android:layout_width="@dimen/color_width"
         android:layout_height="@dimen/color_height"
         android:layout_alignBottom="@+id/selecting"
         android:layout_alignTop="@+id/selecting"
         android:layout_toRightOf="@+id/color_water_12"
+        android:contentDescription="@null"
         android:scaleType="fitStart"
-        android:visibility="gone"
-        android:src="@drawable/palette_end" />
+        android:src="@drawable/palette_end"
+        android:visibility="gone" />
 
     <!-- Toolbar -->
 
     <ImageView
         android:id="@+id/palett"
-        android:contentDescription="@null"
         android:layout_width="@dimen/tool_width"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
+        android:contentDescription="@null"
         android:scaleType="fitXY"
         android:src="@drawable/background_leftpanel" />
 
     <ImageView
         android:id="@+id/selecting"
-        android:contentDescription="@null"
         android:layout_width="@dimen/tool_width"
         android:layout_height="@dimen/tool_height"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/hand"
+        android:contentDescription="@null"
         android:src="@drawable/selecting" />
 
     <ImageView
         android:id="@+id/button_restart"
-        android:contentDescription="@string/button_restart"
         android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_height"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:contentDescription="@string/button_restart"
         android:src="@drawable/button_restart" />
 
     <View
@@ -428,63 +428,80 @@
 
     <ImageView
         android:id="@+id/hand"
-        android:contentDescription="@string/hand"
         android:layout_width="@dimen/tool_width"
         android:layout_height="@dimen/tool_height"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/eraser"
         android:layout_marginBottom="@dimen/tool_margin_bottom"
         android:clickable="true"
+        android:contentDescription="@string/hand"
         android:onClick="onClickTool"
         android:src="@drawable/hand" />
 
     <ImageView
         android:id="@+id/eraser"
-        android:contentDescription="@string/eraser"
         android:layout_width="@dimen/tool_width"
         android:layout_height="@dimen/tool_height"
-        android:layout_below="@+id/water"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/water"
         android:layout_marginBottom="@dimen/tool_margin_bottom"
         android:clickable="true"
+        android:contentDescription="@string/eraser"
         android:onClick="onClickTool"
         android:src="@drawable/eraser" />
 
     <ImageView
         android:id="@+id/water"
-        android:contentDescription="@string/water"
         android:layout_width="@dimen/tool_width"
         android:layout_height="@dimen/tool_height"
-        android:layout_below="@+id/rigid"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rigid"
         android:layout_marginBottom="@dimen/tool_margin_bottom"
         android:clickable="true"
+        android:contentDescription="@string/water"
         android:onClick="onClickTool"
         android:src="@drawable/water_6" />
 
     <ImageView
         android:id="@+id/rigid"
-        android:contentDescription="@string/rigid"
         android:layout_width="@dimen/tool_width"
         android:layout_height="@dimen/tool_height"
-        android:layout_below="@+id/pencil"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/pencil"
         android:layout_marginBottom="@dimen/tool_margin_bottom"
         android:clickable="true"
+        android:contentDescription="@string/rigid"
         android:onClick="onClickTool"
         android:src="@drawable/rigid_9" />
 
     <ImageView
         android:id="@+id/pencil"
-        android:contentDescription="@string/pencil"
         android:layout_width="@dimen/tool_width"
         android:layout_height="@dimen/tool_height"
-        android:layout_below="@+id/tool_separator"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tool_separator"
         android:layout_marginBottom="@dimen/tool_margin_bottom"
         android:clickable="true"
+        android:contentDescription="@string/pencil"
         android:onClick="onClickTool"
         android:src="@drawable/pencil_8" />
+
+    <TextView
+        android:id="@+id/set_wallpaper"
+        android:layout_width="38dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginLeft="6dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/hand"
+        android:layout_marginBottom="@dimen/tool_margin_bottom"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="设置壁纸"
+        android:textColor="#fff"
+        android:textSize="10sp"
+        android:background="@drawable/button_background_drawable"
+        android:textStyle="bold" />
 
     <!-- Debug FPS view -->
 
@@ -494,9 +511,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:textColor="#808080"
-        android:visibility="gone"
         android:clickable="true"
-        android:onClick="onClickDebug" />
+        android:onClick="onClickDebug"
+        android:textColor="#808080"
+        android:visibility="gone" />
 
 </RelativeLayout>

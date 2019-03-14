@@ -16,19 +16,19 @@
 */
 package com.google.fpl.liquidfunpaint;
 
-import com.google.fpl.liquidfun.World;
-import com.google.fpl.liquidfunpaint.tool.Tool;
-import com.google.fpl.liquidfunpaint.tool.Tool.ToolType;
-
 import android.app.Activity;
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.view.MotionEvent;
-import android.view.Surface;
 import android.view.View;
 import android.view.View.OnTouchListener;
+
+import com.google.fpl.liquidfun.World;
+import com.google.fpl.liquidfunpaint.tool.Tool;
+import com.google.fpl.liquidfunpaint.tool.Tool.ToolType;
 
 /**
  * Basic controller that listens to touch and sensor inputs
@@ -42,32 +42,33 @@ public class Controller implements OnTouchListener, SensorEventListener {
     private static final String TAG = "Controller";
     private static final float GRAVITY = 10f;
 
-    public Controller(Activity activity) {
+    public Controller(Context activity) {
+        mGravityVec[0] = -GRAVITY;
         // Get rotation and set the vector
-        switch (activity.getWindowManager().getDefaultDisplay().getRotation()) {
-            case Surface.ROTATION_0:
-                mGravityVec[0] = -GRAVITY;
-                break;
-            case Surface.ROTATION_90:
-                mGravityVec[1] = -GRAVITY;
-                break;
-            case Surface.ROTATION_180:
-                mGravityVec[0] = GRAVITY;
-                break;
-            case Surface.ROTATION_270:
-                mGravityVec[1] = GRAVITY;
-                break;
-        }
+//        switch (activity.getWindowManager().getDefaultDisplay().getRotation()) {
+//            case Surface.ROTATION_0:
+//                mGravityVec[0] = -GRAVITY;
+//                break;
+//            case Surface.ROTATION_90:
+//                mGravityVec[1] = -GRAVITY;
+//                break;
+//            case Surface.ROTATION_180:
+//                mGravityVec[0] = GRAVITY;
+//                break;
+//            case Surface.ROTATION_270:
+//                mGravityVec[1] = GRAVITY;
+//                break;
+//        }
 
         mManager = (SensorManager) activity.getSystemService(Activity.SENSOR_SERVICE);
         mAccelerometer = mManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
 
-    protected void onResume() {
+    public void onResume() {
         mManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
     }
 
-    protected void onPause() {
+    public void onPause() {
         mManager.unregisterListener(this);
     }
 

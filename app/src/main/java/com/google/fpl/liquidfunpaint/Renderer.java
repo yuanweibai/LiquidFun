@@ -16,12 +16,11 @@
 */
 package com.google.fpl.liquidfunpaint;
 
-import android.app.Activity;
+import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.google.fpl.liquidfun.Body;
 import com.google.fpl.liquidfun.BodyDef;
@@ -30,7 +29,6 @@ import com.google.fpl.liquidfun.Draw;
 import com.google.fpl.liquidfun.ParticleSystem;
 import com.google.fpl.liquidfun.ParticleSystemDef;
 import com.google.fpl.liquidfun.PolygonShape;
-import com.google.fpl.liquidfun.R;
 import com.google.fpl.liquidfun.World;
 import com.google.fpl.liquidfunpaint.shader.ShaderProgram;
 
@@ -76,7 +74,7 @@ public class Renderer extends Observable implements GLSurfaceView.Renderer {
     public int sScreenHeight = 1;
 
     /// Member variables
-    private Activity mActivity = null;
+    private Context mActivity = null;
 
     // Renderer class owns all Box2D objects, for thread-safety
     private World mWorld = null;
@@ -90,7 +88,7 @@ public class Renderer extends Observable implements GLSurfaceView.Renderer {
     protected DebugRenderer mDebugRenderer = null;
 
     // Measure the frame rate
-    long totalFrames = -10000;
+    public long totalFrames = -10000;
     private int mFrames;
     private long mStartTime;
     private long mTime;
@@ -118,7 +116,7 @@ public class Renderer extends Observable implements GLSurfaceView.Renderer {
       return _instance;
     }
 
-    public void init(Activity activity) {
+    public void init(Context activity) {
         mActivity = activity;
 
         // Initialize all the different renderers
@@ -150,19 +148,19 @@ public class Renderer extends Observable implements GLSurfaceView.Renderer {
                 mTime = time;
                 mFrames = 0;
 
-                mActivity.runOnUiThread(new Runnable() {
-                        @Override
-                    public void run() {
-                        String message = MainActivity.sVersionName + '\n'
-                                + fps + " fps\n"
-                                + count + " particles\n"
-                                + mParticleSystem.getParticleGroupCount()
-                                + " particle groups\n"
-                                + mWorld.getBodyCount() + " bodies\n";
-                        ((TextView) mActivity.findViewById(R.id.fps))
-                                .setText(message);
-                    }
-                });
+//                mActivity.runOnUiThread(new Runnable() {
+//                        @Override
+//                    public void run() {
+//                        String message = MainActivity.sVersionName + '\n'
+//                                + fps + " fps\n"
+//                                + count + " particles\n"
+//                                + mParticleSystem.getParticleGroupCount()
+//                                + " particle groups\n"
+//                                + mWorld.getBodyCount() + " bodies\n";
+//                        ((TextView) mActivity.findViewById(R.id.fps))
+//                                .setText(message);
+//                    }
+//                });
             }
             mFrames++;
             totalFrames++;
@@ -402,7 +400,7 @@ public class Renderer extends Observable implements GLSurfaceView.Renderer {
      * This provides access to the main Activity class that our Renderer is
      * associated with. Provided for debug access; use with care.
      */
-    public Activity getCurrentActivity() {
-        return mActivity;
-    }
+//    public Activity getCurrentActivity() {
+//        return mActivity;
+//    }
 }

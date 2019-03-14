@@ -1,24 +1,24 @@
 /**
-* Copyright (c) 2014 Google, Inc. All rights reserved.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-*/
+ * Copyright (c) 2014 Google, Inc. All rights reserved.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.google.fpl.liquidfunpaint;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.graphics.PixelFormat;
@@ -42,6 +42,7 @@ import com.google.fpl.liquidfun.BuildConfig;
 import com.google.fpl.liquidfun.R;
 import com.google.fpl.liquidfunpaint.tool.Tool;
 import com.google.fpl.liquidfunpaint.tool.Tool.ToolType;
+import com.google.fpl.liquidfunpaint.wallpaper.SetWallpaperPreviewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,11 +80,6 @@ public class MainActivity extends Activity implements OnTouchListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Explicitly load all shared libraries for Android 4.1 (Jelly Bean)
-        // Or we could get a crash from dependencies.
-        System.loadLibrary("liquidfun");
-        System.loadLibrary("liquidfun_jni");
-
         // Set the ToolBar layout
         setContentView(R.layout.tools_layout);
         mRootLayout = (RelativeLayout) findViewById(R.id.root);
@@ -113,12 +109,12 @@ public class MainActivity extends Activity implements OnTouchListener {
                     viewId, getColor(rigidColorPrefix + i, "color"));
             mPencilImageMap.append(
                     viewId, r.getIdentifier(pencilPrefix + i,
-                                            "drawable",
-                                            getPackageName()));
+                            "drawable",
+                            getPackageName()));
             mRigidImageMap.append(
                     viewId, r.getIdentifier(rigidPrefix + i,
-                                            "drawable",
-                                            getPackageName()));
+                            "drawable",
+                            getPackageName()));
             mRigidColorPalette.add(findViewById(viewId));
 
             // Get color palette for water tool
@@ -131,8 +127,8 @@ public class MainActivity extends Activity implements OnTouchListener {
                     viewId, getColor(waterColorPrefix + i, "color"));
             mWaterImageMap.append(
                     viewId, r.getIdentifier(waterPrefix + i,
-                                            "drawable",
-                                            getPackageName()));
+                            "drawable",
+                            getPackageName()));
             mWaterColorPalette.add(findViewById(viewId));
         }
 
@@ -159,7 +155,7 @@ public class MainActivity extends Activity implements OnTouchListener {
         if (BuildConfig.DEBUG) {
             mWorldView.setDebugFlags(
                     GLSurfaceView.DEBUG_LOG_GL_CALLS |
-                    GLSurfaceView.DEBUG_CHECK_GL_ERROR);
+                            GLSurfaceView.DEBUG_CHECK_GL_ERROR);
         }
         mWorldView.setOnTouchListener(this);
         // GLSurfaceView#setPreserveEGLContextOnPause() is added in API level 11
@@ -190,15 +186,15 @@ public class MainActivity extends Activity implements OnTouchListener {
         fadeOut.setDuration(500);
         fadeOut.setStartOffset(3000);
         fadeOut.setAnimationListener(new AnimationListener() {
-                @Override
+            @Override
             public void onAnimationStart(Animation animation) {
             }
 
-                @Override
+            @Override
             public void onAnimationRepeat(Animation animation) {
             }
 
-                @Override
+            @Override
             public void onAnimationEnd(Animation animation) {
                 title.setVisibility(View.GONE);
             }
@@ -213,12 +209,19 @@ public class MainActivity extends Activity implements OnTouchListener {
             try {
                 sVersionName = "Version "
                         + getPackageManager()
-                            .getPackageInfo(getPackageName(), 0).versionName;
+                        .getPackageInfo(getPackageName(), 0).versionName;
                 versionView.setText(sVersionName);
             } catch (NameNotFoundException e) {
                 // The name returned by getPackageName() must be found.
             }
         }
+
+        findViewById(R.id.set_wallpaper).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SetWallpaperPreviewActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -252,7 +255,7 @@ public class MainActivity extends Activity implements OnTouchListener {
         // If we are not selecting the same tool with an open color palette,
         // open it.
         if (!(selectedTool.getId() == mSelected.getId() &&
-              prevOpenPalette != null)) {
+                prevOpenPalette != null)) {
             openPalette(palette);
         }
     }
@@ -406,15 +409,15 @@ public class MainActivity extends Activity implements OnTouchListener {
         switch (mSelected.getId()) {
             case R.id.pencil:
                 mSelected.setImageResource(
-                      mPencilImageMap.get(v.getId()));
+                        mPencilImageMap.get(v.getId()));
                 break;
             case R.id.rigid:
                 mSelected.setImageResource(
-                      mRigidImageMap.get(v.getId()));
+                        mRigidImageMap.get(v.getId()));
                 break;
             case R.id.water:
                 mSelected.setImageResource(
-                      mWaterImageMap.get(v.getId()));
+                        mWaterImageMap.get(v.getId()));
                 break;
         }
         // Close the palette on choosing a color
