@@ -19,24 +19,19 @@ package com.google.fpl.liquidfunpaint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.SparseIntArray;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.google.fpl.liquidfun.BuildConfig;
 import com.google.fpl.liquidfun.R;
@@ -177,44 +172,6 @@ public class MainActivity extends Activity implements OnTouchListener {
         // Initialize the first selected tool
         mSelected = (ImageView) findViewById(R.id.water);
         onClickTool(mSelected);
-
-        // Show the title view for 3 seconds
-        LayoutInflater inflater = getLayoutInflater();
-        inflater.inflate(R.layout.title, mRootLayout);
-        final View title = findViewById(R.id.title);
-        Animation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setDuration(500);
-        fadeOut.setStartOffset(3000);
-        fadeOut.setAnimationListener(new AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                title.setVisibility(View.GONE);
-            }
-        });
-        title.setVisibility(View.VISIBLE);
-        title.startAnimation(fadeOut);
-
-        if (BuildConfig.DEBUG) {
-            View fps = findViewById(R.id.fps);
-            fps.setVisibility(View.VISIBLE);
-            TextView versionView = (TextView) findViewById(R.id.version);
-            try {
-                sVersionName = "Version "
-                        + getPackageManager()
-                        .getPackageInfo(getPackageName(), 0).versionName;
-                versionView.setText(sVersionName);
-            } catch (NameNotFoundException e) {
-                // The name returned by getPackageName() must be found.
-            }
-        }
 
         findViewById(R.id.set_wallpaper).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
