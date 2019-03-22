@@ -5,9 +5,9 @@ import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,7 +44,7 @@ public class SetWallpaperPreviewActivity extends Activity implements View.OnTouc
         mGlSurfaceView.setRenderer(mRenderer);
         mRenderer.startSimulation();
 
-        Tool.getTool(Tool.ToolType.WATER).setColor(getColor(getString(R.string.default_water_color), "color"));
+        Tool.getTool(Tool.ToolType.WATER).setColor(getToolColor(R.color.red));
         mController.setTool(Tool.ToolType.WATER, mRenderer);
 
         findViewById(R.id.set_wallpaper_btn).setOnClickListener(new View.OnClickListener() {
@@ -63,10 +63,15 @@ public class SetWallpaperPreviewActivity extends Activity implements View.OnTouc
         startActivityForResult(intent, 1);
     }
 
-    private int getColor(String name, String defType) {
-        Resources r = getResources();
-        int id = r.getIdentifier(name, defType, getPackageName());
-        int color = r.getColor(id);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            finish();
+        }
+    }
+
+    private int getToolColor(@ColorRes int colorId) {
+        int color = getResources().getColor(colorId);
         // ARGB to ABGR
         int red = (color >> 16) & 0xFF;
         int blue = (color << 16) & 0xFF0000;

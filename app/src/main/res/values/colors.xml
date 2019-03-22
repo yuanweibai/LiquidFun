@@ -47,4 +47,8 @@
     <item type="string" name="default_rigid_color">color_rigid_9</item>
     <item type="string" name="default_water_color">color_water_6</item>
 
+    <color name="black">#000000</color>
+    <color name="red">#FF0303</color>
+    <color name="blue">#036A9B</color>
+
 </resources>
