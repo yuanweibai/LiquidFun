@@ -69,6 +69,7 @@ public class DebugRenderer extends Draw {
     private ByteBuffer mLineColorBuffer;
     private AttributeInfo mLinePositionAttr;
     private AttributeInfo mLineColorAttr;
+    private Renderer mRenderer;
 
     public DebugRenderer() {
         mPolygonPositionBuffer = ByteBuffer.allocateDirect(DEBUG_CAPACITY)
@@ -87,6 +88,7 @@ public class DebugRenderer extends Draw {
                 .order(ByteOrder.nativeOrder());
         mLineColorBuffer = ByteBuffer.allocateDirect(DEBUG_CAPACITY)
                 .order(ByteOrder.nativeOrder());
+        mRenderer = new Renderer();
     }
 
     /// Helper functions for adding color to a ByteBuffer
@@ -151,8 +153,8 @@ public class DebugRenderer extends Draw {
         addColorToBuffer(mCircleColorBuffer, color);
 
         float pointSize =
-                Math.max(1.0f, Renderer.getInstance().sScreenWidth *
-                (2.0f * radius / Renderer.getInstance().sRenderWorldWidth));
+                Math.max(1.0f, mRenderer.mScreenWidth *
+                (2.0f * radius / mRenderer.mRenderWorldWidth));
         mCirclePointSizeBuffer.putFloat(pointSize);
     }
 
@@ -182,8 +184,8 @@ public class DebugRenderer extends Draw {
         mCircleColorBuffer.put(colors);
 
         float pointSize =
-                Math.max(1.0f, Renderer.getInstance().sScreenWidth *
-                (2.0f * radius / Renderer.getInstance().sRenderWorldWidth));
+                Math.max(1.0f, mRenderer.mScreenWidth *
+                (2.0f * radius / mRenderer.mRenderWorldWidth));
         for (int i = 0; i < count; ++i) {
             mCirclePointSizeBuffer.putFloat(pointSize);
         }
@@ -229,7 +231,7 @@ public class DebugRenderer extends Draw {
     }
 
     public void draw() {
-        World world = Renderer.getInstance().acquireWorld();
+        World world = mRenderer.acquireWorld();
         try {
             resetAllBuffers();
 
@@ -238,13 +240,13 @@ public class DebugRenderer extends Draw {
 
             GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
             GLES20.glViewport(
-                    0, 0, Renderer.getInstance().sScreenWidth,
-                    Renderer.getInstance().sScreenHeight);
+                    0, 0, mRenderer.mScreenWidth,
+                    mRenderer.mScreenHeight);
             drawPolygons(mTransformFromWorld);
             drawCircles(mTransformFromWorld);
             drawSegments(mTransformFromWorld);
         } finally {
-            Renderer.getInstance().releaseWorld();
+            mRenderer.releaseWorld();
         }
     }
 
@@ -322,8 +324,8 @@ public class DebugRenderer extends Draw {
           Matrix.scaleM(
                   mTransformFromWorld,
                   0,
-                  2f / Renderer.getInstance().sRenderWorldWidth,
-                  2f / Renderer.getInstance().sRenderWorldHeight,
+                  2f / mRenderer.mRenderWorldWidth,
+                  2f / mRenderer.mRenderWorldHeight,
                   1);
     }
 

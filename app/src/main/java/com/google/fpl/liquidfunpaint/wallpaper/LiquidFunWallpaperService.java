@@ -22,6 +22,7 @@ public class LiquidFunWallpaperService extends WallpaperService {
 
         private LiquidFunGlSurfaceView mGlSurfaceView;
         private Controller mController;
+        private Renderer mRenderer;
 
         @Override
         public void onCreate(SurfaceHolder surfaceHolder) {
@@ -34,14 +35,14 @@ public class LiquidFunWallpaperService extends WallpaperService {
             mGlSurfaceView.setEGLContextClientVersion(2);
             mGlSurfaceView.setPreserveEGLContextOnPause(true);
 
-            Renderer renderer = Renderer.getInstance();
-            Renderer.getInstance().init(LiquidFunWallpaperService.this);
-            mController = new Controller(LiquidFunWallpaperService.this);
-            mGlSurfaceView.setRenderer(renderer);
-            renderer.startSimulation();
+            mRenderer = new Renderer();
+            mRenderer.init(LiquidFunWallpaperService.this);
+            mController = new Controller(LiquidFunWallpaperService.this, mRenderer);
+            mGlSurfaceView.setRenderer(mRenderer);
+            mRenderer.startSimulation();
 
             Tool.getTool(Tool.ToolType.WATER).setColor(getColor(getString(R.string.default_water_color), "color"));
-            mController.setTool(Tool.ToolType.WATER);
+            mController.setTool(Tool.ToolType.WATER, mRenderer);
 
             mController.init();
         }
@@ -67,7 +68,7 @@ public class LiquidFunWallpaperService extends WallpaperService {
             if (visible) {
                 mController.onResume();
                 mGlSurfaceView.onResume();
-                Renderer.getInstance().totalFrames = -10000;
+                mRenderer.totalFrames = -10000;
             } else {
                 mController.onPause();
                 mGlSurfaceView.onPause();

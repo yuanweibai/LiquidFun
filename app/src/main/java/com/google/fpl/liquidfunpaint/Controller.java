@@ -40,8 +40,10 @@ public class Controller implements OnTouchListener, SensorEventListener {
 
     private static final String TAG = "Controller";
     private static final float GRAVITY = 10f;
+    private Renderer mRenderer;
 
-    public Controller(Context activity) {
+    public Controller(Context activity,Renderer renderer) {
+        mRenderer = renderer;
         mGravityVec[0] = -GRAVITY;
         // Get rotation and set the vector
 //        switch (activity.getWindowManager().getDefaultDisplay().getRotation()) {
@@ -95,13 +97,15 @@ public class Controller implements OnTouchListener, SensorEventListener {
             float x = event.values[0];
             float y = event.values[1];
 
-            World world = Renderer.getInstance().acquireWorld();
+            World world = mRenderer.acquireWorld();
             try {
-                world.setGravity(
-                        mGravityVec[0] * x - mGravityVec[1] * y,
-                        mGravityVec[1] * x + mGravityVec[0] * y);
+                if (world != null){
+                    world.setGravity(
+                            mGravityVec[0] * x - mGravityVec[1] * y,
+                            mGravityVec[1] * x + mGravityVec[0] * y);
+                }
             } finally {
-                Renderer.getInstance().releaseWorld();
+                mRenderer.releaseWorld();
             }
         }
     }
@@ -112,9 +116,10 @@ public class Controller implements OnTouchListener, SensorEventListener {
         }
     }
 
-    public void setTool(ToolType type) {
+    public void setTool(ToolType type,Renderer renderer) {
         Tool oldTool = mTool;
         mTool = Tool.getTool(type);
+        mTool.setRenderer(renderer);
 
         if (oldTool != mTool) {
             if (oldTool != null) {

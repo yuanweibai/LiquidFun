@@ -20,7 +20,6 @@ import com.google.fpl.liquidfun.ParticleGroup;
 import com.google.fpl.liquidfun.ParticleGroupDef;
 import com.google.fpl.liquidfun.ParticleGroupFlag;
 import com.google.fpl.liquidfun.ParticleSystem;
-import com.google.fpl.liquidfunpaint.Renderer;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -72,12 +71,12 @@ public class WaterTool extends Tool {
             pgd.setLinearVelocity(mVelocity);
             pgd.setColor(mColor);
             pgd.setCircleShapesFromVertexList(buffer.slice(), 5, 0.09f);
-            ParticleSystem ps = Renderer.getInstance().acquireParticleSystem();
+            ParticleSystem ps = mRenderer.acquireParticleSystem();
             try {
                 ps.createParticleGroup(pgd);
                 pgd.delete();
             } finally {
-                Renderer.getInstance().releaseParticleSystem();
+                mRenderer.releaseParticleSystem();
             }
         }
     }

@@ -70,6 +70,7 @@ public class MainActivity extends Activity implements OnTouchListener {
 
     private boolean mUsingTool = false;
     private static final int ANIMATION_DURATION = 300;
+    private Renderer mRenderer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,9 +139,9 @@ public class MainActivity extends Activity implements OnTouchListener {
         // Set the restart button's listener
         findViewById(R.id.button_restart).setOnTouchListener(this);
 
-        Renderer renderer = Renderer.getInstance();
-        Renderer.getInstance().init(this);
-        mController = new Controller(this);
+        mRenderer = new Renderer();
+        mRenderer.init(this);
+        mController = new Controller(this, mRenderer);
 
         // Set up the OpenGL WorldView
         mWorldView = (GLSurfaceView) findViewById(R.id.world);
@@ -158,8 +159,8 @@ public class MainActivity extends Activity implements OnTouchListener {
             setPreserveEGLContextOnPause();
         }
 
-        mWorldView.setRenderer(renderer);
-        renderer.startSimulation();
+        mWorldView.setRenderer(mRenderer);
+        mRenderer.startSimulation();
 
         // Set default tool colors
         Tool.getTool(ToolType.PENCIL).setColor(
@@ -191,7 +192,7 @@ public class MainActivity extends Activity implements OnTouchListener {
         super.onResume();
         mController.onResume();
         mWorldView.onResume();
-        Renderer.getInstance().totalFrames = -10000;
+        mRenderer.totalFrames = -10000;
 
     }
 
@@ -251,7 +252,7 @@ public class MainActivity extends Activity implements OnTouchListener {
 
     private void select(View v, ToolType tool) {
         // Send the new tool over to the Controller
-        mController.setTool(tool);
+        mController.setTool(tool, mRenderer);
         // Keep track of the ImageView of the tool and highlight it
         mSelected = (ImageView) v;
         View selecting = findViewById(R.id.selecting);
@@ -301,14 +302,14 @@ public class MainActivity extends Activity implements OnTouchListener {
             case MotionEvent.ACTION_DOWN:
                 mUsingTool = true;
                 if (mSelected.getId() == R.id.rigid) {
-                    Renderer.getInstance().pauseSimulation();
+                    mRenderer.pauseSimulation();
                 }
                 break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 mUsingTool = false;
                 if (mSelected.getId() == R.id.rigid) {
-                    Renderer.getInstance().startSimulation();
+                    mRenderer.startSimulation();
                 }
                 break;
             default:
@@ -331,7 +332,7 @@ public class MainActivity extends Activity implements OnTouchListener {
                     select(v, null);
                     break;
                 case MotionEvent.ACTION_UP:
-                    Renderer.getInstance().reset();
+                    mRenderer.reset();
                     mController.reset();
                     // Could refactor out to a deselect() function, but this is
                     // the only place that needs it now.

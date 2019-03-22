@@ -73,8 +73,10 @@ public class ParticleRenderer {
 
     private List<ParticleGroup> mParticleRenderList =
             new ArrayList<ParticleGroup>(256);
+    private Renderer mRenderer;
 
-    public ParticleRenderer() {
+    public ParticleRenderer(Renderer renderer) {
+        mRenderer = renderer;
         mParticlePositionBuffer = ByteBuffer
                 .allocateDirect(2 * 4 * Renderer.MAX_PARTICLE_COUNT)
                 .order(ByteOrder.nativeOrder());
@@ -102,7 +104,7 @@ public class ParticleRenderer {
         mParticleWeightBuffer.rewind();
         mParticleRenderList.clear();
 
-        ParticleSystem ps = Renderer.getInstance().acquireParticleSystem();
+        ParticleSystem ps = mRenderer.acquireParticleSystem();
         try {
             int worldParticleCount = ps.getParticleCount();
             // grab the most current particle buffers
@@ -120,12 +122,12 @@ public class ParticleRenderer {
 
             GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
             GLES20.glViewport(
-                    0, 0, Renderer.getInstance().sScreenWidth,
-                    Renderer.getInstance().sScreenHeight);
+                    0, 0, mRenderer.mScreenWidth,
+                    mRenderer.mScreenHeight);
 
             // Draw the paper texture.
             TextureRenderer.getInstance().drawTexture(
-                    mPaperTexture, Renderer.MAT4X4_IDENTITY, -1, -1, 1, 1);
+                    mPaperTexture, Renderer.MAT4X4_IDENTITY, -1, -1, 1, 1, mRenderer.mScreenWidth, mRenderer.mScreenHeight);
 
             // Copy the water particles to screen
             mWaterScreenRenderer.draw(mTransformFromTexture);
@@ -133,7 +135,7 @@ public class ParticleRenderer {
             // Copy the other particles to screen
             mScreenRenderer.draw(mTransformFromTexture);
         } finally {
-            Renderer.getInstance().releaseParticleSystem();
+            mRenderer.releaseParticleSystem();
         }
     }
 
@@ -179,7 +181,7 @@ public class ParticleRenderer {
                 1, false, mTransformFromWorld, 0);
 
         // Go through each particle group
-        ParticleSystem ps = Renderer.getInstance().acquireParticleSystem();
+        ParticleSystem ps = mRenderer.acquireParticleSystem();
         try {
             ParticleGroup currGroup = ps.getParticleGroupList();
 
@@ -195,7 +197,7 @@ public class ParticleRenderer {
                 currGroup = currGroup.getNext();
             }
         } finally {
-            Renderer.getInstance().releaseParticleSystem();
+            mRenderer.releaseParticleSystem();
         }
 
         mWaterParticleMaterial.endRender();
@@ -225,14 +227,14 @@ public class ParticleRenderer {
                 mParticleMaterial.getUniformLocation("uTransform"),
                 1, false, mTransformFromWorld, 0);
 
-        ParticleSystem ps = Renderer.getInstance().acquireParticleSystem();
+        ParticleSystem ps = mRenderer.acquireParticleSystem();
         try {
             // Go through all the particleGroups in the render list
             for (ParticleGroup currGroup : mParticleRenderList) {
                 drawParticleGroup(currGroup);
             }
         } finally {
-            Renderer.getInstance().releaseParticleSystem();
+            mRenderer.releaseParticleSystem();
         }
 
         mParticleMaterial.endRender();
@@ -251,12 +253,12 @@ public class ParticleRenderer {
         Matrix.scaleM(
                 mTransformFromWorld,
                 0,
-                2f / Renderer.getInstance().sRenderWorldWidth,
-                2f / Renderer.getInstance().sRenderWorldHeight,
+                2f / mRenderer.mRenderWorldWidth,
+                2f / mRenderer.mRenderWorldHeight,
                 1);
     }
 
-    public void onSurfaceCreated(Context context) {
+    public void onSurfaceCreated(Context context, Renderer renderer) {
         // Create the render surfaces
         for (int i = 0; i < mRenderSurface.length; i++) {
             mRenderSurface[i] = new RenderSurface(FB_SIZE, FB_SIZE);
@@ -275,7 +277,7 @@ public class ParticleRenderer {
             // Water particle material. We are utilizing the position and color
             // buffers returned from LiquidFun directly.
             mWaterParticleMaterial = new WaterParticleMaterial(
-                    context, json.getJSONObject("waterParticlePointSprite"));
+                    context, mRenderer, json.getJSONObject("waterParticlePointSprite"));
 
             // Initialize attributes specific to this material
             mWaterParticleMaterial.addAttribute(
@@ -294,7 +296,7 @@ public class ParticleRenderer {
             // Non-water particle material. We are utilizing the position and
             // color buffers returned from LiquidFun directly.
             mParticleMaterial = new ParticleMaterial(
-                    context, json.getJSONObject("otherParticlePointSprite"));
+                    context, renderer, json.getJSONObject("otherParticlePointSprite"));
 
             // Initialize attributes specific to this material
             mParticleMaterial.addAttribute(

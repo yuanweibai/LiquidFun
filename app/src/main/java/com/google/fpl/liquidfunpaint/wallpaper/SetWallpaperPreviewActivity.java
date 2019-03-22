@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,6 +21,7 @@ public class SetWallpaperPreviewActivity extends Activity implements View.OnTouc
 
     private GLSurfaceView mGlSurfaceView;
     private Controller mController;
+    private Renderer mRenderer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,14 +38,14 @@ public class SetWallpaperPreviewActivity extends Activity implements View.OnTouc
         mGlSurfaceView.setOnTouchListener(this);
         mGlSurfaceView.setPreserveEGLContextOnPause(true);
 
-        Renderer renderer = Renderer.getInstance();
-        Renderer.getInstance().init(this);
-        mController = new Controller(this);
-        mGlSurfaceView.setRenderer(renderer);
-        renderer.startSimulation();
+        mRenderer = new Renderer();
+        mRenderer.init(this);
+        mController = new Controller(this, mRenderer);
+        mGlSurfaceView.setRenderer(mRenderer);
+        mRenderer.startSimulation();
 
         Tool.getTool(Tool.ToolType.WATER).setColor(getColor(getString(R.string.default_water_color), "color"));
-        mController.setTool(Tool.ToolType.WATER);
+        mController.setTool(Tool.ToolType.WATER, mRenderer);
 
         findViewById(R.id.set_wallpaper_btn).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
@@ -87,7 +87,7 @@ public class SetWallpaperPreviewActivity extends Activity implements View.OnTouc
         super.onResume();
         mController.onResume();
         mGlSurfaceView.onResume();
-        Renderer.getInstance().totalFrames = -10000;
+        mRenderer.totalFrames = -10000;
     }
 
     @Override

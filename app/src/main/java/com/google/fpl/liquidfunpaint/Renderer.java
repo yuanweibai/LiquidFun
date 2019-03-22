@@ -48,7 +48,6 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public class Renderer extends Observable implements GLSurfaceView.Renderer {
     // Private constants
-    private static final Renderer _instance = new Renderer();
     private static final String TAG = "Renderer";
     private static final int ONE_SEC = 1000000000;
     private static final float WORLD_HEIGHT = 3f;
@@ -65,13 +64,13 @@ public class Renderer extends Observable implements GLSurfaceView.Renderer {
     private static final float BOUNDARY_THICKNESS = 20.0f;
 
     // Public static constants; variables for reuse
-    public static final float MAT4X4_IDENTITY[];
+    static final float MAT4X4_IDENTITY[];
 
     // Public constants; records render states
-    public float sRenderWorldWidth = WORLD_HEIGHT;
-    public float sRenderWorldHeight = WORLD_HEIGHT;
-    public int sScreenWidth = 1;
-    public int sScreenHeight = 1;
+    public float mRenderWorldWidth = WORLD_HEIGHT;
+    public float mRenderWorldHeight = WORLD_HEIGHT;
+    int mScreenWidth = 1;
+    int mScreenHeight = 1;
 
     /// Member variables
     private Context mActivity = null;
@@ -109,18 +108,14 @@ public class Renderer extends Observable implements GLSurfaceView.Renderer {
         }
     }
 
-    private Renderer() {
-    }
-
-    public static Renderer getInstance() {
-      return _instance;
+    public Renderer() {
     }
 
     public void init(Context activity) {
         mActivity = activity;
 
         // Initialize all the different renderers
-        mParticleRenderer = new ParticleRenderer();
+        mParticleRenderer = new ParticleRenderer(this);
         if (DEBUG_DRAW) {
             mDebugRenderer = new DebugRenderer();
             mDebugRenderer.setFlags(Draw.SHAPE_BIT | Draw.PARTICLE_BIT);
@@ -174,10 +169,10 @@ public class Renderer extends Observable implements GLSurfaceView.Renderer {
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
 
-        sRenderWorldHeight = WORLD_HEIGHT;
-        sRenderWorldWidth = width * WORLD_HEIGHT / height;
-        sScreenWidth = width;
-        sScreenHeight = height;
+        mRenderWorldHeight = WORLD_HEIGHT;
+        mRenderWorldWidth = width * WORLD_HEIGHT / height;
+        mScreenWidth = width;
+        mScreenHeight = height;
 
         // Reset the boundary
         initBoundaries();
@@ -200,7 +195,7 @@ public class Renderer extends Observable implements GLSurfaceView.Renderer {
 
         TextureRenderer.getInstance().onSurfaceCreated();
 
-        mParticleRenderer.onSurfaceCreated(mActivity);
+        mParticleRenderer.onSurfaceCreated(mActivity,this);
 
         if (DEBUG_DRAW) {
             mDebugRenderer.onSurfaceCreated(mActivity);
@@ -323,34 +318,34 @@ public class Renderer extends Observable implements GLSurfaceView.Renderer {
             // boundary definitions
             // top
             boundaryPolygon.setAsBox(
-                    sRenderWorldWidth,
+                    mRenderWorldWidth,
                     BOUNDARY_THICKNESS,
-                    sRenderWorldWidth / 2,
-                    sRenderWorldHeight + BOUNDARY_THICKNESS,
+                    mRenderWorldWidth / 2,
+                    mRenderWorldHeight + BOUNDARY_THICKNESS,
                     0);
             mBoundaryBody.createFixture(boundaryPolygon, 0.0f);
             // bottom
             boundaryPolygon.setAsBox(
-                    sRenderWorldWidth,
+                    mRenderWorldWidth,
                     BOUNDARY_THICKNESS,
-                    sRenderWorldWidth / 2,
+                    mRenderWorldWidth / 2,
                     -BOUNDARY_THICKNESS,
                     0);
             mBoundaryBody.createFixture(boundaryPolygon, 0.0f);
             // left
             boundaryPolygon.setAsBox(
                     BOUNDARY_THICKNESS,
-                    sRenderWorldHeight,
+                    mRenderWorldHeight,
                     -BOUNDARY_THICKNESS,
-                    sRenderWorldHeight / 2,
+                    mRenderWorldHeight / 2,
                     0);
             mBoundaryBody.createFixture(boundaryPolygon, 0.0f);
             // right
             boundaryPolygon.setAsBox(
                     BOUNDARY_THICKNESS,
-                    sRenderWorldHeight,
-                    sRenderWorldWidth + BOUNDARY_THICKNESS,
-                    sRenderWorldHeight / 2,
+                    mRenderWorldHeight,
+                    mRenderWorldWidth + BOUNDARY_THICKNESS,
+                    mRenderWorldHeight / 2,
                     0);
             mBoundaryBody.createFixture(boundaryPolygon, 0.0f);
 

@@ -1,28 +1,27 @@
 /**
-* Copyright (c) 2014 Google, Inc. All rights reserved.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-*/
+ * Copyright (c) 2014 Google, Inc. All rights reserved.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.google.fpl.liquidfunpaint;
+
+import android.opengl.GLES20;
+import android.opengl.Matrix;
 
 import com.google.fpl.liquidfunpaint.shader.Material;
 import com.google.fpl.liquidfunpaint.shader.ShaderProgram;
 import com.google.fpl.liquidfunpaint.shader.Texture;
-
-import android.opengl.GLES20;
-import android.opengl.Matrix;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -48,7 +47,7 @@ public class TextureRenderer {
         mPositionBuffer = ByteBuffer.allocateDirect(8 * 4)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
 
-        float data[] = new float[] {
+        float data[] = new float[]{
                 0, 0, 1, 0, 0, 1, 1, 1
         };
         mTexCoordBuffer = ByteBuffer.allocateDirect(8 * 4)
@@ -89,12 +88,12 @@ public class TextureRenderer {
      * @param right Right coordinate of a rectangle to draw the texture within
      * @param top Top coordinate of a rectangle to draw the texture within
      */
-    public void drawTexture(
+    void drawTexture(
             Texture texture, float transform[],
-            float left, float bottom, float right, float top) {
+            float left, float bottom, float right, float top,int screenWidth,int screenHeight) {
         drawTexture(
                 texture, transform, Renderer.MAT4X4_IDENTITY,
-                left, bottom, right, top, 1.0f, false);
+                left, bottom, right, top, 1.0f, false,screenWidth,screenHeight);
     }
 
     /**
@@ -112,10 +111,10 @@ public class TextureRenderer {
      * @param noScale If true, we will scale UVs to keep the aspect ratio and
      *                size of the texture for tiling
      */
-    public void drawTexture(
+    private void drawTexture(
             Texture texture, float inTransform[], float inUvTransform[],
             float left, float bottom, float right, float top,
-            float alphaScale, boolean noScale) {
+            float alphaScale, boolean noScale, int screenWidth, int screenHeight) {
         setRect(left, bottom, right, top);
 
         uvTransform = Arrays.copyOf(inUvTransform, uvTransform.length);
@@ -123,16 +122,14 @@ public class TextureRenderer {
         if (noScale) {
             // We first calculate the actual screen dimensions to be drawn.
             // left/bottom/right/top spans [-1, 1], so (right - left) / 2 will
-            // give us the % of Renderer.sScreenWidth we will be drawing on.
+            // give us the % of Renderer.mScreenWidth we will be drawing on.
             // Then we calculate the ratio of the texture's width to the
             // previous value to get how much the texture's UVs should be
             // scaled. The UV will be scaled inverse proportionally.
             float widthUvScale =
-                    (right - left) / 2 * Renderer.getInstance().sScreenWidth /
-                    texture.getWidth();
+                    (right - left) / 2 * screenWidth / texture.getWidth();
             float heightUvScale =
-                    (top - bottom) / 2 * Renderer.getInstance().sScreenHeight /
-                    texture.getHeight();
+                    (top - bottom) / 2 * screenHeight / texture.getHeight();
             Matrix.scaleM(uvTransform, 0, widthUvScale, heightUvScale, 1);
         }
 
@@ -162,7 +159,7 @@ public class TextureRenderer {
                 mTextureMaterial.getUniformLocation("uUvTransform"),
                 1, false, uvTransform, 0);
         GLES20.glUniform1f(
-              mTextureMaterial.getUniformLocation("uAlphaScale"), alphaScale);
+                mTextureMaterial.getUniformLocation("uAlphaScale"), alphaScale);
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
 
@@ -170,7 +167,7 @@ public class TextureRenderer {
     }
 
     private void setRect(float left, float bottom, float right, float top) {
-        float[] data = new float[] {
+        float[] data = new float[]{
                 left, bottom, right, bottom, left, top, right, top
         };
         mPositionBuffer.position(0);

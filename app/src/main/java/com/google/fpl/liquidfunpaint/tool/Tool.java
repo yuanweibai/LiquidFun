@@ -45,6 +45,7 @@ public abstract class Tool {
     // The size of the circle shape we use to create ParticleGroups with.
     // Independent from the particle radius, but should not be smaller than it.
     protected static final float MINIMUM_BRUSHSIZE = 0.18f;
+    protected Renderer mRenderer;
 
     /**
      * Type of tools
@@ -157,6 +158,10 @@ public abstract class Tool {
         return mParticleGroupFlags;
     }
 
+    public void setRenderer(Renderer renderer) {
+        mRenderer = renderer;
+    }
+
     public void init() {
 
     }
@@ -219,11 +224,11 @@ public abstract class Tool {
         worldPoint.x = Math.max(border,
                 Math.min(
                         worldPoint.x,
-                        Renderer.getInstance().sRenderWorldWidth - border));
+                        mRenderer.mRenderWorldWidth - border));
         worldPoint.y = Math.max(border,
                 Math.min(
                         worldPoint.y,
-                        Renderer.getInstance().sRenderWorldHeight - border));
+                        mRenderer.mRenderWorldHeight - border));
     }
 
     /**
@@ -268,9 +273,9 @@ public abstract class Tool {
         float radius = mBrushSize / 2;
 
         Vector2f worldPoint = new Vector2f(
-                Renderer.getInstance().sRenderWorldWidth
+                mRenderer.mRenderWorldWidth
                         * screenX / v.getWidth(),
-                Renderer.getInstance().sRenderWorldHeight *
+                mRenderer.mRenderWorldHeight *
                         (v.getHeight() - screenY)
                         / v.getHeight());
         clampToWorld(worldPoint, radius);
@@ -375,7 +380,7 @@ public abstract class Tool {
                     radius);
         }
 
-        ParticleSystem ps = Renderer.getInstance().acquireParticleSystem();
+        ParticleSystem ps = mRenderer.acquireParticleSystem();
         try {
             if (mOperations.contains(ToolOperation.REMOVE_PARTICLES)) {
                 buffer.position(pInfo.getBufferStart());
@@ -405,7 +410,7 @@ public abstract class Tool {
                 pgd.delete();
             }
         } finally {
-            Renderer.getInstance().releaseParticleSystem();
+            mRenderer.releaseParticleSystem();
         }
     }
 
