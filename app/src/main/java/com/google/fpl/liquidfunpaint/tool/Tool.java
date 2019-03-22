@@ -157,6 +157,10 @@ public abstract class Tool {
         return mParticleGroupFlags;
     }
 
+    public void init() {
+
+    }
+
     public void onTouch(View v, MotionEvent e) {
         switch (e.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:

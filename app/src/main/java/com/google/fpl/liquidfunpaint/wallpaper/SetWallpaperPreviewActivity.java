@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 import android.view.View;
@@ -51,6 +52,7 @@ public class SetWallpaperPreviewActivity extends Activity implements View.OnTouc
                 startSetLiveWallpaper();
             }
         });
+        mController.init();
     }
 
     private void startSetLiveWallpaper() {

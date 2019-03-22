@@ -42,6 +42,8 @@ public class LiquidFunWallpaperService extends WallpaperService {
 
             Tool.getTool(Tool.ToolType.WATER).setColor(getColor(getString(R.string.default_water_color), "color"));
             mController.setTool(Tool.ToolType.WATER);
+
+            mController.init();
         }
 
         private int getColor(String name, String defType) {
